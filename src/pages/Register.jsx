@@ -143,7 +143,7 @@ const Register = () => {
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 outline-none"
-                      placeholder="johndoe"
+                      placeholder="Enter Name Here..."
                     />
                   </motion.div>
 
