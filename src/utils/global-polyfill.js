@@ -1,3 +1,5 @@
+import { Buffer } from "buffer"
+
 // Polyfill for Node.js globals in the browser
 window.global = window
 window.process = {
@@ -5,5 +7,4 @@ window.process = {
   version: "",
   nextTick: (cb) => setTimeout(cb, 0),
 }
-window.Buffer = window.Buffer || require("buffer").Buffer
-
+window.Buffer = window.Buffer || Buffer
