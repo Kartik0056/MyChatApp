@@ -7,6 +7,7 @@ const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
 const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+console.log("Backend API URL:", API_BASE_URL); 
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -38,7 +39,6 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (email, password) => {
-    console.log("Backend API URL:", API_BASE_URL);
     try {
       const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
