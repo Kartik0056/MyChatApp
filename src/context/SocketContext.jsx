@@ -1,4 +1,3 @@
-"use client"
 
 import { createContext, useContext, useEffect, useState } from "react"
 import { io } from "socket.io-client"
@@ -19,35 +18,41 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       const newSocket = io(`${API_BASE_URL}`, {
+        transports: ["websocket"], // Force WebSocket transport
         auth: {
           token: localStorage.getItem("token"),
         },
-      })
-
+      });
+  
       newSocket.on("connect", () => {
-        console.log("Connected to socket server")
-      })
-
+        console.log("Connected to socket server");
+      });
+  
+      newSocket.on("connect_error", (err) => {
+        console.error("WebSocket connection error:", err.message);
+      });
+  
       newSocket.on("users:online", (users) => {
-        setOnlineUsers(users)
-      })
-
+        setOnlineUsers(users);
+      });
+  
       newSocket.on("call:incoming", (data) => {
-        console.log("Incoming call:", data)
-        setIncomingCall(data)
-      })
-
+        console.log("Incoming call:", data);
+        setIncomingCall(data);
+      });
+  
       newSocket.on("disconnect", () => {
-        console.log("Disconnected from socket server")
-      })
-
-      setSocket(newSocket)
-
+        console.log(" Disconnected from socket server");
+      });
+  
+      setSocket(newSocket);
+  
       return () => {
-        newSocket.disconnect()
-      }
+        newSocket.disconnect();
+      };
     }
-  }, [user])
+  }, [user]);
+  
 
   const value = {
     socket,
