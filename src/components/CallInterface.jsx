@@ -29,7 +29,7 @@ const CallInterface = ({ callTo, callType, onEndCall }) => {
   const [receiverStream, setReceiverStream] = useState(null)
   const [callData, setCallData] = useState(null)
   const [receiverInfo, setReceiverInfo] = useState(null)
-
+  const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
   const callerVideo = useRef()
   const receiverVideo = useRef()
   const callTimerRef = useRef()
@@ -40,7 +40,7 @@ const CallInterface = ({ callTo, callType, onEndCall }) => {
     const fetchReceiverInfo = async () => {
       try {
         const token = localStorage.getItem("token")
-        const response = await axios.get(`http://localhost:4000/api/users/${callTo}`, {
+        const response = await axios.get(`${API_BASE_URL}/api/users/${callTo}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -146,7 +146,7 @@ const CallInterface = ({ callTo, callType, onEndCall }) => {
 
       // First create or get conversation
       const convResponse = await axios.post(
-        "http://localhost:4000/api/conversations",
+        `${API_BASE_URL}/api/conversations`,
         { recipientId: callTo },
         {
           headers: {
@@ -157,7 +157,7 @@ const CallInterface = ({ callTo, callType, onEndCall }) => {
 
       // Then create call message
       const msgResponse = await axios.post(
-        `http://localhost:4000/api/conversations/${convResponse.data._id}/messages`,
+        `${API_BASE_URL}/api/conversations/${convResponse.data._id}/messages`,
         {
           text: `${callType === "audio" ? "Audio" : "Video"} call`,
           callType: callType,
@@ -229,7 +229,7 @@ const CallInterface = ({ callTo, callType, onEndCall }) => {
       try {
         const token = localStorage.getItem("token")
         await axios.put(
-          `http://localhost:4000/api/messages/${callData.messageId}/call-status`,
+          `${API_BASE_URL}/api/messages/${callData.messageId}/call-status`,
           {
             status: status,
             duration: callDuration,
@@ -264,7 +264,7 @@ const CallInterface = ({ callTo, callType, onEndCall }) => {
             <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white mr-3">
               {receiverInfo?.profilePicture ? (
                 <img
-                  src={`http://localhost:4000${receiverInfo.profilePicture}`}
+                  src={`${API_BASE_URL}${receiverInfo.profilePicture}`}
                   alt={receiverInfo.username}
                   className="w-full h-full rounded-full object-cover"
                 />

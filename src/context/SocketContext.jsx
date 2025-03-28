@@ -5,6 +5,7 @@ import { io } from "socket.io-client"
 import { useAuth } from "./AuthContext"
 
 const SocketContext = createContext()
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 export const useSocket = () => useContext(SocketContext)
 
@@ -16,7 +17,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const newSocket = io("http://localhost:4000", {
+      const newSocket = io(`${API_BASE_URL}`, {
         auth: {
           token: localStorage.getItem("token"),
         },

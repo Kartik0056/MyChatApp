@@ -4,6 +4,7 @@ import { useSocket } from "../context/SocketContext"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { Phone, Video, X } from "lucide-react"
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 const IncomingCallNotification = () => {
   const { incomingCall, setIncomingCall, socket } = useSocket()
@@ -19,7 +20,7 @@ const IncomingCallNotification = () => {
   const fetchCallerInfo = async (callerId) => {
     try {
       const token = localStorage.getItem("token")
-      const response = await axios.get(`http://localhost:4000/api/users/${callerId}`, {
+      const response = await axios.get(`${API_BASE_URL}/api/users/${callerId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -62,7 +63,7 @@ const IncomingCallNotification = () => {
           <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center mb-4">
             {callerInfo?.profilePicture ? (
               <img
-                src={`http://localhost:4000${callerInfo.profilePicture}`}
+                src={`${API_BASE_URL}${callerInfo.profilePicture}`}
                 alt={callerInfo.username}
                 className="w-full h-full rounded-full object-cover"
               />

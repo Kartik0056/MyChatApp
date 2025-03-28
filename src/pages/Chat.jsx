@@ -20,6 +20,7 @@ import {
   LogOut,
   BarChart,
 } from "lucide-react"
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 const Chat = () => {
   const { user, logout } = useAuth()
@@ -48,7 +49,7 @@ useEffect(()=>{
   const currentUser = async() =>{
     try{
       const token = localStorage.getItem("token")
-      const response = await axios.get("http://localhost:4000/api/users/me",{
+      const response = await axios.get(`${API_BASE_URL}/api/users/me`,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -101,7 +102,7 @@ useEffect(()=>{
     const fetchConversations = async () => {
       try {
         const token = localStorage.getItem("token")
-        const response = await axios.get("http://localhost:4000/api/conversations", {
+        const response = await axios.get(`${API_BASE_URL}/api/conversations`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -140,7 +141,7 @@ useEffect(()=>{
       try {
         const token = localStorage.getItem("token")
         const response = await axios.get(
-          `http://localhost:4000/api/messages/${selectedConversation._id}/messages`,
+          `${API_BASE_URL}/api/messages/${selectedConversation._id}/messages`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -220,7 +221,7 @@ useEffect(()=>{
       }
   
       const response = await axios.post(
-        `http://localhost:4000/api/messages/${selectedConversation._id}/messages`,
+        `${API_BASE_URL}/api/messages/${selectedConversation._id}/messages`,
         formData,
         {
           headers: {
@@ -265,7 +266,7 @@ useEffect(()=>{
 
     try {
       const token = localStorage.getItem("token")
-      const response = await axios.get(`http://localhost:4000/api/users/search?query=${searchQuery}`, {
+      const response = await axios.get(`${API_BASE_URL}/api/users/search?query=${searchQuery}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -283,7 +284,7 @@ useEffect(()=>{
     try {
       const token = localStorage.getItem("token")
       const response = await axios.post(
-        "http://localhost:4000/api/conversations",
+        `${API_BASE_URL}/api/conversations`,
         { recipientId: userId },
         {
           headers: {
@@ -313,7 +314,7 @@ useEffect(()=>{
 
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://localhost:4000/api/messages/${selectedConversation._id}`, {
+      await axios.delete(`${API_BASE_URL}/api/messages/${selectedConversation._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -339,7 +340,7 @@ useEffect(()=>{
   const deleteMessage = async (messageId) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://localhost:4000/api/messages/${messageId}`, {
+      await axios.delete(`${API_BASE_URL}/api/messages/${messageId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -389,7 +390,7 @@ useEffect(()=>{
     try {
       const token = localStorage.getItem("token")
       await axios.post(
-        "http://localhost:4000/api/auth/logout",
+        `${API_BASE_URL}/api/auth/logout`,
         {},
         {
           headers: {
@@ -416,7 +417,7 @@ useEffect(()=>{
       <div className="relative">
         {currentUser?.profilePicture ? (
           <img
-            src={`http://localhost:4000${currentUser.profilePicture}`}
+            src={`${API_BASE_URL}${currentUser.profilePicture}`}
             alt={currentUser.username}
             className="w-12 h-12 rounded-full object-cover"
           />
@@ -525,7 +526,7 @@ useEffect(()=>{
                 <div className="flex items-center">
                   {user.profilePicture ? (
                     <img
-                      src={`http://localhost:4000${user.profilePicture}`}
+                      src={`${API_BASE_URL}${user.profilePicture}`}
                       alt={user.username}
                       className="w-10 h-10 rounded-full object-cover"
                     />
@@ -566,7 +567,7 @@ useEffect(()=>{
                     <div className="relative">
                       {otherUser?.profilePicture ? (
                         <img
-                          src={`http://localhost:4000${otherUser.profilePicture}`}
+                          src={`${API_BASE_URL}${otherUser.profilePicture}`}
                           alt={otherUser.username}
                           className="w-12 h-12 rounded-full object-cover"
                         />
@@ -625,7 +626,7 @@ useEffect(()=>{
                   >
                     {getOtherUser(selectedConversation)?.profilePicture ? (
                       <img
-                        src={`http://localhost:4000${getOtherUser(selectedConversation).profilePicture}`}
+                        src={`${API_BASE_URL}${getOtherUser(selectedConversation).profilePicture}`}
                         alt={getOtherUser(selectedConversation).username}
                         className="w-10 h-10 rounded-full object-cover"
                       />
@@ -730,7 +731,7 @@ useEffect(()=>{
                             <div className="mt-2">
                               {message.file.mimetype.startsWith("image/") ? (
                                 <img
-                                  src={`http://localhost:4000/uploads/${message.file.filename}`}
+                                  src={`${API_BASE_URL}/uploads/${message.file.filename}`}
                                   alt="Shared image"
                                   className="max-w-full rounded"
                                 />

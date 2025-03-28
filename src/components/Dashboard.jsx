@@ -13,6 +13,7 @@ import {
   CheckCircle,
   ArrowLeft 
 } from "lucide-react";
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 
 const Dashboard = () => {
@@ -25,7 +26,7 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         const token = localStorage.getItem("token")
-        const response = await axios.get("http://localhost:4000/api/users/dashboard/data", {
+        const response = await axios.get(`${API_BASE_URL}/api/users/dashboard/data`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -40,7 +41,7 @@ const Dashboard = () => {
     const fetchBlockedUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:4000/api/users/blocked/list", {
+        const response = await axios.get(`${API_BASE_URL}/api/users/blocked/list`, {
           headers: { Authorization: `Bearer ${token}` },
         });
     
@@ -60,7 +61,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:4000/api/users/unblock/${userId}`,
+        `${API_BASE_URL}/api/users/unblock/${userId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -149,7 +150,7 @@ const Dashboard = () => {
                     <div className="relative">
                       {otherUser?.profilePicture ? (
                         <img
-                          src={`http://localhost:4000${otherUser.profilePicture}`}
+                          src={`${API_BASE_URL}${otherUser.profilePicture}`}
                           alt={otherUser.username}
                           className="w-12 h-12 rounded-full object-cover"
                         />

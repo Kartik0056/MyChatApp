@@ -6,6 +6,7 @@ import axios from "axios"
 const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -17,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
       if (token) {
         try {
-          const response = await axios.get("http://localhost:4000/api/users/me", {
+          const response = await axios.get(`${API_BASE_URL}/api/users/me`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:4000/api/auth/login", {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password,
       })
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      const response = await axios.post("http://localhost:4000/api/auth/register", {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, {
         username,
         email,
         password,

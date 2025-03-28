@@ -12,6 +12,7 @@ import {
   Phone, 
   Video 
 } from "lucide-react";
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 const UserProfile = () => {
   const { userId } = useParams()
@@ -31,7 +32,7 @@ const UserProfile = () => {
         const token = localStorage.getItem("token")
 
         // Check if user is blocked
-        const blockedResponse = await axios.get("http://localhost:4000/api/users/blocked/list", {
+        const blockedResponse = await axios.get(`${API_BASE_URL}/api/users/blocked/list`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -40,7 +41,7 @@ const UserProfile = () => {
         setIsBlocked(blockedResponse.data.some((blockedUser) => blockedUser._id === userId))
 
         // Fetch user profile
-        const profileResponse = await axios.get(`http://localhost:4000/api/users/${userId}`, {
+        const profileResponse = await axios.get(`${API_BASE_URL}/api/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -64,7 +65,7 @@ const UserProfile = () => {
     try {
       const token = localStorage.getItem("token")
       const response = await axios.post(
-        "http://localhost:4000/api/conversations",
+        `${API_BASE_URL}/api/conversations`,
         { recipientId: userId },
         {
           headers: {
@@ -85,7 +86,7 @@ const UserProfile = () => {
 
       if (isBlocked) {
         await axios.post(
-          `http://localhost:4000/api/users/unblock/${userId}`,
+          `${API_BASE_URL}/api/users/unblock/${userId}`,
           {},
           {
             headers: {
@@ -96,7 +97,7 @@ const UserProfile = () => {
         setIsBlocked(false)
       } else {
         await axios.post(
-          `http://localhost:4000/api/users/block/${userId}`,
+          `${API_BASE_URL}/api/users/block/${userId}`,
           {},
           {
             headers: {
@@ -148,7 +149,7 @@ const UserProfile = () => {
             <div className="flex flex-col items-center">
               {profile?.profilePicture ? (
                 <img
-                  src={`http://localhost:4000${profile.profilePicture}`}
+                  src={`${API_BASE_URL}${profile.profilePicture}`}
                   alt={profile.username}
                   className="w-24 h-24 rounded-full object-cover mb-4"
                 />

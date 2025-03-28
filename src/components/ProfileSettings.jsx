@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 // import { ArrowLeftIcon, PhotographIcon } from "@heroicons/react/outline"
 import { ArrowLeft, Image as PhotographIcon } from "lucide-react";
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 const ProfileSettings = () => {
   const { user, setUser } = useAuth()
@@ -13,7 +14,7 @@ const ProfileSettings = () => {
   const [bio, setBio] = useState(user?.bio || "")
   const [profilePicture, setProfilePicture] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(
-    user?.profilePicture ? `http://localhost:4000${user.profilePicture}` : null,
+    user?.profilePicture ? `${API_BASE_URL}${user.profilePicture}` : null,
   )
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -43,7 +44,7 @@ const ProfileSettings = () => {
         formData.append("profilePicture", profilePicture)
       }
 
-      const response = await axios.put("http://localhost:4000/api/users/profile", formData, {
+      const response = await axios.put(`${API_BASE_URL}/api/users/profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
