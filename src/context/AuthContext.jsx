@@ -6,7 +6,8 @@ import axios from "axios"
 const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+const REACT_APP_BACKEND_URL = "https://vercelbackend-forchatapp-production.up.railway.app"
+const API_BASE_URL = REACT_APP_BACKEND_URL || "http://localhost:4000";
 console.log("Backend API URL:", API_BASE_URL); 
 
 export const AuthProvider = ({ children }) => {
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`https://vercelbackend-forchatapp-production.up.railway.app/api/auth/login`, {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password,
       })
@@ -55,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      const response = await axios.post(`https://vercelbackend-forchatapp-production.up.railway.app/api/auth/register`, {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, {
         username,
         email,
         password,
