@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, {
+      const response = await axios.post(`https://vercelbackend-forchatapp-production.up.railway.app/api/auth/register`, {
         username,
         email,
         password,
