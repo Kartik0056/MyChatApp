@@ -6,7 +6,8 @@ import axios from "axios"
 const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
-const REACT_APP_BACKEND_URL = "https://vercelbackend-forchatapp-production.up.railway.app"
+const VERCEL_URL = "https://vercel-backend-for-chat-app.vercel.app"
+const REACT_APP_BACKEND_URL = VERCEL_URL || "https://vercelbackend-forchatapp-production.up.railway.app";
 const API_BASE_URL = REACT_APP_BACKEND_URL || "http://localhost:4000";
 console.log("Backend API URL:", API_BASE_URL); 
 
