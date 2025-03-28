@@ -8,7 +8,11 @@ const AuthContext = createContext()
 export const useAuth = () => useContext(AuthContext)
 const REACT_APP_BACKEND_URL = "https://vercelbackend-forchatapp-production.up.railway.app"
 const API_BASE_URL = REACT_APP_BACKEND_URL || "http://localhost:4000";
+<<<<<<< HEAD
 console.log("Backend API URL:", API_BASE_URL); 
+=======
+
+>>>>>>> 9a7f38c ( update all react url for railway)
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)

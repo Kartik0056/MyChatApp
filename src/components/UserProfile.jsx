@@ -12,7 +12,8 @@ import {
   Phone, 
   Video 
 } from "lucide-react";
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+const REACT_APP_BACKEND_URL = "https://vercelbackend-forchatapp-production.up.railway.app"
+const API_BASE_URL = REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 const UserProfile = () => {
   const { userId } = useParams()

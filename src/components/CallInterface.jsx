@@ -29,7 +29,8 @@ const CallInterface = ({ callTo, callType, onEndCall }) => {
   const [receiverStream, setReceiverStream] = useState(null)
   const [callData, setCallData] = useState(null)
   const [receiverInfo, setReceiverInfo] = useState(null)
-  const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+  const REACT_APP_BACKEND_URL = "https://vercelbackend-forchatapp-production.up.railway.app"
+const API_BASE_URL = REACT_APP_BACKEND_URL || "http://localhost:4000";
   const callerVideo = useRef()
   const receiverVideo = useRef()
   const callTimerRef = useRef()

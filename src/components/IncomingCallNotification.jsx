@@ -4,7 +4,8 @@ import { useSocket } from "../context/SocketContext"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { Phone, Video, X } from "lucide-react"
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+const REACT_APP_BACKEND_URL = "https://vercelbackend-forchatapp-production.up.railway.app"
+const API_BASE_URL = REACT_APP_BACKEND_URL || "http://localhost:4000";
 
 const IncomingCallNotification = () => {
   const { incomingCall, setIncomingCall, socket } = useSocket()
